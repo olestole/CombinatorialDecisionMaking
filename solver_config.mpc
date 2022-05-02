@@ -1,0 +1,8 @@
+{
+    "compiler-statistics": true,
+    "intermediate-solutions": true,
+    "output-time": true,
+    "solver": "org.gecode.gecode@6.3.0",
+    "solver-statistics": true,
+    "verbose-compilation": true
+}
