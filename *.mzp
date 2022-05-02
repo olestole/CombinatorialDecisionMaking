@@ -1,0 +1,21 @@
+{
+    "openFiles": [
+        "VLSIdesign.mzn",
+        "ins1.dzn"
+    ],
+    "openTab": 0,
+    "projectFiles": [
+        "../E1/Playground.mzn",
+        "../E1/n_queens.mzn",
+        "../E1/n_queens_minimal.mzn",
+        "../E1/n_queens_single.mzn",
+        "../E2/Cumulative/Data1.dzn",
+        "../E2/Cumulative/rcpsp.mzn",
+        "../E2/Disjunctive/Ins1.dzn",
+        "VLSIdesign.mzn",
+        "ins1.dzn"
+    ],
+    "selectedBuiltinConfigId": "org.gecode.gecode",
+    "selectedBuiltinConfigVersion": "6.3.0",
+    "version": 106
+}
