@@ -36,3 +36,7 @@ constraint % Ensure no overlap
 
 % Objective function
 solve minimize l;
+
+output 
+  ["\(w) \(n)\n"] ++
+  [show(dims[i, width]) ++ " " ++ show(dims[i, height]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS];
