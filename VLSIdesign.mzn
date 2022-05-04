@@ -29,13 +29,17 @@ constraint % Ensure max width
 
 constraint % Ensure no overlap
   forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j /\ (pos_x[i] + dims[i, width] > pos_x[j] /\ pos_x[j] + dims[j, width] > pos_x[i]))( % Can also have 'less than', might have impact on search
+    forall(j in CIRCUITS where i != j /\ (overlapping(i,j)))( % Can also have 'less than', might have impact on search
       (pos_y[i] + dims[i, height] <= pos_y[j] \/ pos_y[j] + dims[j, height] <= pos_y[i])
     )
   );
 
 % Objective function
 solve minimize l;
+
+%overlapping predicate
+predicate overlapping(var int:i, var int:j) = 
+   pos_x[i] + dims[i, width] > pos_x[j] /\ pos_x[j] + dims[j, width] > pos_x[i];
 
 output 
   ["\(w) \(n)\n"] ++
