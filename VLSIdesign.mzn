@@ -29,8 +29,15 @@ constraint % Ensure max width
 
 constraint % Ensure no overlap
   forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j /\ (x_overlapping(i,j)))( % Can also have 'less than', might have impact on search
-      (pos_y[i] + dims[i, height] <= pos_y[j] \/ pos_y[j] + dims[j, height] <= pos_y[i])
+    forall(j in CIRCUITS where i != j /\ x_overlapping(i,j))( % Can also have 'less than', might have impact on search
+      not y_overlapping(i, j)
+    )
+  );
+
+constraint % Ensure no overlap
+  forall(i in CIRCUITS)(
+    forall(j in CIRCUITS where i != j /\ y_overlapping(i,j))( % Can also have 'less than', might have impact on search
+      not x_overlapping(i,j)
     )
   );
 
@@ -46,5 +53,6 @@ predicate y_overlapping(var int:i, var int:j) =
    pos_y[i] + dims[i, height] > pos_y[j] /\ pos_y[j] + dims[j, height] > pos_y[i];
 
 output 
-  ["\(w) \(n)\n"] ++
+  ["\(w) \(l)\n"] ++
+  ["\(n)\n"] ++
   [show(dims[i, width]) ++ " " ++ show(dims[i, height]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS];
