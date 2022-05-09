@@ -50,13 +50,16 @@ constraint
     lex_lesseq(left_y_row, [ left_y_row[i] | i in reverse(1..n) ]);
 */    
 constraint
-    lex_lesseq(pos_x, [ pos_x[i] | i in reverse(CIRCUITS) ]);
+    lex_lesseq(pos_x, [ pos_x[i] | i in reverse(CIRCUITS) ]) /\ lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);
  
-constraint
-    lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);
+/*constraint
+    lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);*/
 
 % Objective function
 solve minimize l;
+
+% constraint l=8;
+% solve satisfy;
 
 %overlapping x-direction predicate
 predicate x_overlapping(var int:i, var int:j) = 
