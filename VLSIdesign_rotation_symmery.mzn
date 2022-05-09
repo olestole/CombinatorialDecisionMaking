@@ -1,0 +1,71 @@
+include "globals.mzn";
+
+int: w;
+int: n;
+
+int: width = 1;
+int: height = 2;
+
+set of int: CIRCUITS = 1..n;
+array[CIRCUITS, 1..2] of int: dims;
+
+int: upper_bound = sum(i in CIRCUITS)(dims[i, height]);
+
+array[CIRCUITS] of var 0..w: pos_x; % Could let w = w - 1, since we're zero-indexing.
+array[CIRCUITS] of var 0..upper_bound: pos_y;
+array[CIRCUITS] of var 0..1: rotation;
+
+% Objective variable
+var 0..upper_bound: l;
+
+constraint
+  l = max(i in CIRCUITS)(
+    pos_y[i] + dims[i, 2-rotation[i]]
+  );
+
+constraint % Ensure max width
+  forall(i in CIRCUITS)(
+    pos_x[i] + dims[i, width] <= w
+  );
+
+constraint % Ensure no overlap
+  forall(i in CIRCUITS)(
+    forall(j in CIRCUITS where i != j)( % Can also have 'less than', might have impact on search
+      (not overlapping_regular(i, j) /\ rotation[j] = 0) \/ (not overlapping_rotated(i, j) /\ pos_x[j]+dims[j, height] <= w /\ rotation[j]=1) % changing input dir rotates the circuit
+    )
+  );
+
+% Break symmetry vertically and horizontal flip  
+constraint
+    lex_lesseq(pos_x, [ pos_x[i] | i in reverse(CIRCUITS) ]) /\ lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);
+
+  % Break symmetry of flipping squares  
+constraint
+  forall(i in CIRCUITS)
+    (dims[i, width]=dims[i, height] -> rotation[i] = 0);
+    
+% Objective function
+solve minimize l;
+
+% constraint l=8;
+% solve satisfy;
+
+%overlapping x-direction predicate
+predicate x_overlapping(var int:i, var int:j, var int: dir) = 
+   pos_x[i] + dims[i, width] > pos_x[j] /\ pos_x[j] + dims[j, dir] > pos_x[i];
+   
+%overlapping y-direction predicate
+predicate y_overlapping(var int:i, var int:j, var int: dir) = 
+   pos_y[i] + dims[i, height] > pos_y[j] /\ pos_y[j] + dims[j, dir] > pos_y[i];
+   
+predicate overlapping_regular(var int:i, var int:j) = 
+   x_overlapping(i, j, width) /\ y_overlapping(i, j, height);
+
+predicate overlapping_rotated(var int:i, var int:j) = 
+   x_overlapping(i, j, height) /\ y_overlapping(i, j, width);
+   
+output 
+  ["\(w) \(l)\n"] ++
+  ["\(n)\n"] ++
+  [show(dims[i, rotation[i]+1]) ++ " " ++ show(dims[i, 2-rotation[i]]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS]++
+  [show(rotation[i]) ++ " " | i in CIRCUITS];
