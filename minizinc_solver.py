@@ -12,7 +12,7 @@ class Solver(Enum):
     GECODE = "gecode"
 
 
-def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_path = 'VLSIdesign.mzn', visualize = False, intermediate_solutions = False) -> None:
+def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_path: str = 'VLSIdesign.mzn', visualize: bool = False, intermediate_solutions: bool = False) -> None:
     # Create a MiniZinc model
     model = minizinc.Model()
 
@@ -41,5 +41,5 @@ def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_
     print(result.statistics, "\n")
     print(result)
 
-for i in range(5, 15):
+for i in range(1, 9):
     solve(instance_number = i, visualize=True)
