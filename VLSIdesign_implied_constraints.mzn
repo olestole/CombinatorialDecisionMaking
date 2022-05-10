@@ -14,6 +14,21 @@ int: upper_bound = sum(i in CIRCUITS)(dims[i, height]);
 array[CIRCUITS] of var 0..w: pos_x; % Could let w = w - 1, since we're zero-indexing.
 array[CIRCUITS] of var 0..upper_bound: pos_y;
 
+array[CIRCUITS] of var 0..upper_bound+w*1000: pos = [pos_x[i]*1000+pos_y[i] | i in CIRCUITS];
+%array[CIRCUITS] of var 0..upper_bound+w*1000: pos = [(pos_x[i]+pos_y[i])*(pos_x[i]+pos_y[i]+1)div(2)+pos_y[i] | i in CIRCUITS];
+
+/*array[CIRCUITS, 1..2] of var int: pos;
+
+constraint
+  forall(i in CIRCUITS) (pos[i,1] = pos_x[i] /\ pos[i,2] = pos_y[i]);*/
+
+/*constraint
+  forall(c in CIRCUITS) (
+    forall(d in CIRCUITS where c != d)(
+      pos_x[c] != pos_x[d] \/ pos_y[c] != pos_y[d]
+    )
+  );*/
+
 % Objective variable
 var 0..upper_bound: l;
 
@@ -27,19 +42,6 @@ constraint % Ensure max width
     pos_x[i] + dims[i, width] <= w
   );
 
-/*constraint % Ensure no overlap
-  forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j /\ x_overlapping(i,j))( % Can also have 'less than', might have impact on search
-      not y_overlapping(i, j)
-    )
-  );
-
-constraint % Ensure no overlap
-  forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j /\ y_overlapping(i,j))( % Can also have 'less than', might have impact on search
-      not x_overlapping(i,j)
-    )
-  );*/
   
  constraint % Ensure no overlap
   forall(i in CIRCUITS)(
@@ -50,8 +52,7 @@ constraint % Ensure no overlap
   
 %implied constraint, no (pos_x, pos_y) can be the same
 constraint
-  forall(i in CIRCUITS)(
-    alldifferent([pos_x[i], pos_y[i]]));
+    alldifferent(pos);
 
 % Objective function
 solve minimize l;
@@ -70,4 +71,7 @@ predicate overlapping(var int:i, var int:j) =
 output 
   ["\(w) \(l)\n"] ++
   ["\(n)\n"] ++
-  [show(dims[i, width]) ++ " " ++ show(dims[i, height]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS];
+  [show(dims[i, width]) ++ " " ++ show(dims[i, height]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS]++
+  [show(pos)]++
+  [show(pos_x)]++
+  [show(pos_y)];
