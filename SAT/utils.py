@@ -16,3 +16,12 @@ def display_sudoku(sol, w, l):
     ax.set_yticks(np.arange(l))
     ax.grid()
     plt.show()
+
+def read_output(filename):
+    arr = []
+    with open(filename) as f:
+        for line in f:
+            elm = line.strip().split(' ')
+            int_elm = [int(elm) for elm in elm]
+            arr.append(int_elm)
+    return arr
