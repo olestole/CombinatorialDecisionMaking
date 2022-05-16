@@ -58,7 +58,7 @@ def visualize_w_color(sol, w, l, numb_circuits):
 
 def visualize_w_color_rotation(sol, w, l, dims):
     fig, ax = plt.subplots(figsize=(l/3, w/3))
-    colors = np.array(['red', 'green', 'blue', 'Cyan', 'orange', 'black', 'purple', 'brown']*(math.ceil(len(dims)/8)))
+    colors = ['red', 'green', 'blue', 'Cyan', 'orange', 'black', 'purple', 'brown']
     for x in range(w):
         for y in range(l):
             v = sol[x][y] # Mulig y, x
@@ -69,7 +69,7 @@ def visualize_w_color_rotation(sol, w, l, dims):
                     s = str(v)+" R"
                 else:
                     s = str(v)
-            ax.text(x+0.5, (l-0.5)-y, s, va='center', ha='center', color=colors[v])
+            ax.text(x+0.5, (l-0.5)-y, s, va='center', ha='center', color=colors[v % len(colors)])
         ax.set_xlim(0, w)
     ax.set_ylim(0, l)
     ax.set_xticks(np.arange(w))
