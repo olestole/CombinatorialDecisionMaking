@@ -101,3 +101,8 @@ output
   ["\(n)\\n"] ++
   [show(dims[i, width]) ++ " " ++ show(dims[i, height]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\\n" | i in CIRCUITS];
 """)
+
+def write_output_to_file(file_path, output):
+    with open(file_path, "a") as f:
+        f.write(output)
+        f.write("\n")
