@@ -56,7 +56,7 @@ def visualize_w_color(sol, w, l, numb_circuits):
     ax.grid()
     plt.show()
 
-def visualize_w_color_rotation(sol, w, l, dims):
+def visualize_w_color_rotation(sol, w, l, dims, title = None):
     fig, ax = plt.subplots(figsize=(l/3, w/3))
     colors = ['red', 'green', 'blue', 'Cyan', 'orange', 'black', 'purple', 'brown']
     for x in range(w):
@@ -75,6 +75,8 @@ def visualize_w_color_rotation(sol, w, l, dims):
     ax.set_xticks(np.arange(w))
     ax.set_yticks(np.arange(l))
     ax.grid()
+    if title is not None:
+        plt.title(title)
     plt.show()
     
 def read_output(filename):
@@ -84,4 +86,8 @@ def read_output(filename):
             elm = line.strip().split(' ')
             int_elm = [int(elm) for elm in elm]
             arr.append(int_elm)
-    return arr
+    
+    w = arr[0][0]
+    n = arr[1][0]
+    dims = np.array(arr[2:])
+    return w, n, dims
