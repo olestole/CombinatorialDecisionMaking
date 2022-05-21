@@ -91,3 +91,8 @@ def read_output(filename):
     n = arr[1][0]
     dims = np.array(arr[2:])
     return w, n, dims
+
+def write_output_to_file(file_path, output):
+    with open(file_path, "a") as f:
+        f.write(output)
+        f.write("\n")

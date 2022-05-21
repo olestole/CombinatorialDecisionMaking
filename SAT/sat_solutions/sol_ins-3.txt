@@ -1,0 +1,27 @@
+10 10
+6
+3 3 7 7
+3 4 4 6
+3 6 4 0
+3 7 7 0
+4 4 0 0
+4 6 0 4
+
+(:max-memory              56.59
+ :memory                  25.86
+ :num-allocs              10771159
+ :rlimit-count            115116018
+ :sat-backjumps           111
+ :sat-conflicts           111
+ :sat-decisions           265
+ :sat-elim-literals       2
+ :sat-minimized-lits      203
+ :sat-mk-clause-2ary      7942
+ :sat-mk-clause-nary      1190
+ :sat-mk-var              2036
+ :sat-propagations-2ary   29226
+ :sat-propagations-nary   443
+ :sat-subs-resolution-dyn 492
+ :sat-units               1
+ :time                    0.04)
+
