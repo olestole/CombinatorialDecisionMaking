@@ -13,7 +13,7 @@ class Solver(Enum):
     GECODE = "gecode"
 
 
-def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_path: str = 'VLSIdesign.mzn', visualize: bool = False, intermediate_solutions: bool = False) -> minizinc.Result:
+def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_path: str = 'CP/VLSIdesign.mzn', visualize: bool = False, intermediate_solutions: bool = False) -> minizinc.Result:
     # Create a MiniZinc model
     model = minizinc.Model()
 
@@ -22,7 +22,7 @@ def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_
         model.add_string(f.read())
 
     # Load the data-instance from a file
-    dzn_file_path = os.path.join('dzn_instances', f'ins-{instance_number}.dzn')
+    dzn_file_path = os.path.join('CP/dzn_instances', f'ins-{instance_number}.dzn')
     full_dzn_file_path = os.path.join(os.getcwd(), dzn_file_path)
     with open(full_dzn_file_path, 'r') as f:
         model.add_string(f.read())
@@ -42,7 +42,7 @@ def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_
     return result
 
 for i in range(1, 10):
-    output_file = f"./cp_solutions/sol_ins-{i}.txt"
-    result = solve(instance_number = i, visualize=False)
+    output_file = f"CP/cp_solutions/sol_ins-{i}.txt"
+    result = solve(instance_number = i, visualize=False, model_path='CP/VLSIdesign_optimized.mzn')
     output = f"{result}\n{result.statistics}"
     utils.write_output_to_file(output_file, output)
