@@ -1,5 +1,6 @@
 from enum import Enum
 import os
+from unittest import result
 import minizinc
 import utils
 from matplotlib import pyplot as plt
@@ -12,7 +13,7 @@ class Solver(Enum):
     GECODE = "gecode"
 
 
-def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_path = 'VLSIdesign.mzn', visualize = False, intermediate_solutions = False) -> None:
+def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_path: str = 'VLSIdesign.mzn', visualize: bool = False, intermediate_solutions: bool = False) -> minizinc.Result:
     # Create a MiniZinc model
     model = minizinc.Model()
 
@@ -38,8 +39,10 @@ def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_
     if visualize:
         utils.visualize_output(parsed_res)
 
-    print(result.statistics, "\n")
-    print(result)
+    return result
 
-for i in range(5, 15):
-    solve(instance_number = i, visualize=True)
+for i in range(1, 10):
+    output_file = f"./cp_solutions/sol_ins-{i}.txt"
+    result = solve(instance_number = i, visualize=False)
+    output = f"{result}\n{result.statistics}"
+    utils.write_output_to_file(output_file, output)

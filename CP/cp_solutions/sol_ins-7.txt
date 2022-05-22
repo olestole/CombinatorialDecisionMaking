@@ -1,0 +1,13 @@
+14 14
+9
+3 3 5 0
+3 4 5 3
+3 5 11 0
+3 6 8 0
+3 7 5 7
+3 8 8 6
+3 9 11 5
+5 4 0 10
+5 10 0 0
+
+{'paths': 0, 'flatBoolVars': 144, 'flatIntVars': 35, 'flatBoolConstraints': 36, 'flatIntConstraints': 161, 'evaluatedReifiedConstraints': 144, 'method': 'minimize', 'flatTime': 0.182035, 'time': 0.018, 'nodes': 2049, 'failures': 265, 'restarts': 43, 'variables': 3404, 'intVars': 35, 'boolVariables': 3367, 'propagators': 315, 'propagations': 73010, 'peakDepth': 54, 'nogoods': 265, 'backjumps': 110, 'peakMem': 0.0, 'initTime': 0.004, 'solveTime': 0.014, 'objective': 14, 'optTime': 0.012, 'baseMem': 0.0, 'trailMem': 0.01, 'randomSeed': 1653134296, 'nSolutions': 43}

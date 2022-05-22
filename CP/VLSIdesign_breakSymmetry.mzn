@@ -14,8 +14,8 @@ int: upper_bound = sum(i in CIRCUITS)(dims[i, height]);
 
 array[CIRCUITS] of var 0..w: pos_x; % Could let w = w - 1, since we're zero-indexing.
 array[CIRCUITS] of var 0..upper_bound: pos_y;
-array[1..w] of var 0..n: lower_x_row;
-array[1..upper_bound] of var 0..n: left_y_row; % Problem. Pos_y can be upper
+% array[1..w] of var 0..n: lower_x_row;
+% array[1..upper_bound] of var 0..n: left_y_row; % Problem. Pos_y can be upper
 
 % Objective variable
 var 0..upper_bound: l;
@@ -49,14 +49,19 @@ constraint forall (c in 1..n, i in 1..l) (( pos_x[c]=0 /\ pos_y[c]=i ) <-> (left
 constraint
     lex_lesseq(left_y_row, [ left_y_row[i] | i in reverse(1..n) ]);
 */    
+
+/*constraint
+    lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);*/
+    
+% Break symmetry vertically and horizontal flip    
 constraint
-    lex_lesseq(pos_x, [ pos_x[i] | i in reverse(CIRCUITS) ]);
- 
-constraint
-    lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);
+    lex_lesseq(pos_x, [ pos_x[i] | i in reverse(CIRCUITS) ]) /\ lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);
 
 % Objective function
 solve minimize l;
+
+% constraint l=8;
+% solve satisfy;
 
 %overlapping x-direction predicate
 predicate x_overlapping(var int:i, var int:j) = 
