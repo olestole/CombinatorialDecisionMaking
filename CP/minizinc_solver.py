@@ -12,8 +12,16 @@ class Solver(Enum):
     CHUFFED = "chuffed"
     GECODE = "gecode"
 
+class Model(Enum):
+    NORMAL = "VLSIdesign"
+    ROTATION = "VLSIdesign_rotation"
+    NORMAL_OPTIMIZED = "VLSIdesign_optimized"
+    ROTATION_OPTIMIZED = "VLSIdesign_rotation_optimized"
 
-def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_path: str = 'CP/VLSIdesign.mzn', visualize: bool = False, intermediate_solutions: bool = False) -> minizinc.Result:
+def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_type: Model = Model.NORMAL, visualize: bool = False, intermediate_solutions: bool = False) -> minizinc.Result:
+    # Model path
+    model_path = f'CP/{model_type.value}.mzn'
+
     # Create a MiniZinc model
     model = minizinc.Model()
 
@@ -42,7 +50,8 @@ def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_
     return result
 
 for i in range(1, 10):
-    output_file = f"CP/cp_solutions/sol_ins-{i}.txt"
-    result = solve(instance_number = i, visualize=False, model_path='CP/VLSIdesign_optimized.mzn')
+    model_type = Model.NORMAL
+    output_file = f"CP/cp_solutions/{model_type.value}/sol_ins-{i}.txt"
+    result = solve(instance_number = i, visualize=False, model_type=model_type)
     output = f"{result}\n{result.statistics}"
     utils.write_output_to_file(output_file, output)

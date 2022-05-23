@@ -1,9 +1,0 @@
-9 9
-5
-3 3 3 6
-3 4 0 5
-3 5 0 0
-3 6 3 0
-3 9 6 0
-
-{'paths': 0, 'flatBoolVars': 40, 'flatIntVars': 19, 'flatBoolConstraints': 10, 'flatIntConstraints': 49, 'evaluatedReifiedConstraints': 40, 'method': 'minimize', 'flatTime': 0.152323, 'time': 0.003, 'nodes': 289, 'failures': 25, 'restarts': 19, 'variables': 926, 'intVars': 19, 'boolVariables': 905, 'propagators': 95, 'propagations': 5065, 'peakDepth': 17, 'nogoods': 25, 'backjumps': 7, 'peakMem': 0.0, 'initTime': 0.001, 'solveTime': 0.002, 'objective': 9, 'optTime': 0.002, 'baseMem': 0.0, 'trailMem': 0.0, 'randomSeed': 1653134294, 'nSolutions': 19}

@@ -1,0 +1,8 @@
+8 8
+4
+3 3 0 0
+3 5 0 3
+5 3 3 0
+5 5 3 3
+
+{'paths': 0, 'flatBoolVars': 24, 'flatIntVars': 15, 'flatBoolConstraints': 6, 'flatIntConstraints': 31, 'evaluatedReifiedConstraints': 24, 'method': 'minimize', 'flatTime': 0.27168, 'time': 0.006, 'nodes': 76, 'failures': 4, 'restarts': 8, 'variables': 466, 'intVars': 15, 'boolVariables': 449, 'propagators': 60, 'propagations': 1105, 'peakDepth': 11, 'nogoods': 4, 'backjumps': 1, 'peakMem': 0.0, 'initTime': 0.005, 'solveTime': 0.001, 'objective': 8, 'optTime': 0.001, 'baseMem': 0.0, 'trailMem': 0.0, 'randomSeed': 1653292914, 'nSolutions': 8}
