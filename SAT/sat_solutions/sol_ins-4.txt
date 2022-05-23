@@ -1,34 +1,11 @@
 11 11
 7
-3 3 0 8
-3 4 5 4
-3 5 8 6
-3 6 8 0
-5 3 3 8
+3 3 5 4
+3 4 5 7
+3 5 8 0
+3 6 8 5
+5 3 0 8
 5 4 0 4
 8 4 0 0
 
-(:max-memory              56.59
- :memory                  26.00
- :num-allocs              11104379
- :rlimit-count            117095250
- :sat-backjumps           599
- :sat-conflicts           599
- :sat-decisions           8119
- :sat-del-clause          841
- :sat-elim-bool-vars-res  1084
- :sat-elim-literals       3008
- :sat-minimized-lits      12307
- :sat-mk-clause-2ary      17249
- :sat-mk-clause-nary      3620
- :sat-mk-var              3100
- :sat-probing-assigned    15
- :sat-propagations-2ary   635137
- :sat-propagations-nary   9861
- :sat-restarts            83
- :sat-subs-resolution     2614
- :sat-subs-resolution-dyn 1835
- :sat-subsumed            9
- :sat-units               24
- :time                    0.13)
-
+0.234

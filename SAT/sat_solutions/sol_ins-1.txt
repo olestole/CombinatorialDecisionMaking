@@ -1,22 +1,8 @@
 8 8
 4
-3 3 0 5
+3 3 5 5
 3 5 0 0
-5 3 3 5
+5 3 0 5
 5 5 3 0
 
-(:max-memory              56.59
- :memory                  25.39
- :num-allocs              10406510
- :rlimit-count            114214584
- :sat-backjumps           12
- :sat-conflicts           12
- :sat-decisions           33
- :sat-mk-clause-2ary      2626
- :sat-mk-clause-nary      378
- :sat-mk-var              822
- :sat-propagations-2ary   2334
- :sat-propagations-nary   44
- :sat-subs-resolution-dyn 26
- :time                    0.02)
-
+0.019
