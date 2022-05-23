@@ -1,9 +1,13 @@
+#!../venv/bin/python
+
 from enum import Enum
 import os
 from unittest import result
 import minizinc
 import utils
 from matplotlib import pyplot as plt
+import sys
+import getopt
 
 SOLVER = "chuffed"
 INSTANCE_NUMBER = 12
@@ -41,8 +45,33 @@ def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_
 
     return result
 
-for i in range(1, 10):
-    output_file = f"./cp_solutions/sol_ins-{i}.txt"
-    result = solve(instance_number = i, visualize=False)
-    output = f"{result}\n{result.statistics}"
-    utils.write_output_to_file(output_file, output)
+def main(argv):
+    model = 'VLSIdesign.mzn'
+    solver = "chuffed"
+    range = "1-5"
+
+    try:
+      opts, args = getopt.getopt(argv, "hm:s:r:", ["help", "model=", "solver=", "range="])
+    except getopt.GetoptError:
+      print('usage: ./minizinc_solver.py -m <model_path> -s <chuffed|gecode> -r <range>')
+      sys.exit(2)
+    for opt, arg in opts:
+      if opt == '-h':
+         print('usage: ./minizinc_solver.py -m <model_path> -s <chuffed|gecode> -r <range>')
+         sys.exit()
+      elif opt in ("-m", "--model"):
+         model = arg
+      elif opt in ("-s", "--solver"):
+         solver = arg
+      elif opt in ("-r", "--range"):
+        range = arg
+    
+    print(model, solver, range)
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
+    # for i in range(1, 10):
+    #     output_file = f"./cp_solutions/sol_ins-{i}.txt"
+    #     result = solve(instance_number = i, visualize=False)
+    #     output = f"{result}\n{result.statistics}"
+    #     utils.write_output_to_file(output_file, output)
