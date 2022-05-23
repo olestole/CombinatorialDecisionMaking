@@ -16,8 +16,10 @@ class Solver(Enum):
     CHUFFED = "chuffed"
     GECODE = "gecode"
 
+def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_type: str = "VLSIdesign", visualize: bool = False, intermediate_solutions: bool = False) -> minizinc.Result:
+    # Model path
+    model_path = f'{model_type}.mzn'
 
-def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_path: str = 'VLSIdesign.mzn', visualize: bool = False, intermediate_solutions: bool = False) -> minizinc.Result:
     # Create a MiniZinc model
     model = minizinc.Model()
 
@@ -46,7 +48,7 @@ def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_
     return result
 
 def parse_args(argv):
-    model_path = 'VLSIdesign.mzn'
+    model_type = 'VLSIdesign'
     solver = Solver.CHUFFED
     start = 1
     stop = 5
@@ -55,14 +57,14 @@ def parse_args(argv):
     try:
       opts, args = getopt.getopt(argv, "hm:s:r:o", ["help", "model=", "solver=", "range=", "output-file"])
     except getopt.GetoptError:
-      print('usage: ./minizinc_solver.py -m <model_path> -s <chuffed|gecode> -r <range>')
+      print('usage: ./minizinc_solver.py -m <model_type> -s <chuffed|gecode> -r <range>')
       sys.exit(2)
     for opt, arg in opts:
       if opt == '-h':
-         print('usage: ./minizinc_solver.py -m <model_path> -s <chuffed|gecode> -r <range>')
+         print('usage: ./minizinc_solver.py -m <model_type> -s <chuffed|gecode> -r <range>')
          sys.exit()
       elif opt in ("-m", "--model"):
-         model_path = arg
+         model_type = arg
       elif opt in ("-o", "--output-file"):
          output_to_file = True
       elif opt in ("-s", "--solver"):
@@ -79,16 +81,16 @@ def parse_args(argv):
         except:
             print("Error parsing range, example usage: ./minizinc_solver.py -r  6-9")
     
-    print(f"Solving instances from {start} to {stop}\nUsing solver: {solver.value}\nUsing model: {model_path}\n")
-    return model_path, solver, start, stop, output_to_file
+    print(f"Solving instances from {start} to {stop}\nUsing solver: {solver.value}\nUsing model: {model_type}\n")
+    return model_type, solver, start, stop, output_to_file
 
 if __name__ == "__main__":
-    model_path, solver, start, stop, output_to_file = parse_args(sys.argv[1:])
+    model_type, solver, start, stop, output_to_file = parse_args(sys.argv[1:])
     for i in range(start, stop):
-        result = solve(solver, instance_number = i, model_path=model_path, visualize=False)
+        result = solve(solver, instance_number = i, model_type=model_type, visualize=False)
         output = f"{result}\n{result.statistics}"
         if (output_to_file):
-            output_file = f"./cp_solutions/sol_ins-{i}.txt"
+            output_file = f"./cp_solutions/{model_type}/sol_ins-{i}.txt"
             utils.write_output_to_file(output_file, output)
         else:
             print(output)
