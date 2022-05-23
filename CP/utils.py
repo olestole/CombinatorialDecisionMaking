@@ -103,6 +103,6 @@ output
 """)
 
 def write_output_to_file(file_path, output):
-    with open(file_path, "w") as f:
+    with open(file_path, "a") as f:
         f.write(output)
         f.write("\n")
