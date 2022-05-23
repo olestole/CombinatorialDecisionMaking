@@ -84,11 +84,23 @@ def parse_args(argv):
     print(f"Solving instances from {start} to {stop}\nUsing solver: {solver.value}\nUsing model: {model_type}\n")
     return model_type, solver, start, stop, output_to_file
 
+def parse_statistics(statistics):
+    n_solutions = statistics.get('nSolutions')
+    failures = statistics.get('failures')
+    time = statistics.get('time')
+    solve_time = statistics.get('solveTime')
+
+    stats = [time, solve_time, failures, n_solutions]
+    stats = [str(x) for x in stats]
+    return " ".join(stats)
+
 if __name__ == "__main__":
     model_type, solver, start, stop, output_to_file = parse_args(sys.argv[1:])
     for i in range(start, stop):
         result = solve(solver, instance_number = i, model_type=model_type, visualize=False)
-        output = f"{result}\n{result.statistics}"
+        stats = parse_statistics(result.statistics)
+        output = f"{result}\n{stats}"
+
         if (output_to_file):
             output_file = f"./cp_solutions/{model_type}/sol_ins-{i}.txt"
             utils.write_output_to_file(output_file, output)
