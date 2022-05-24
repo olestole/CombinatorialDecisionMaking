@@ -1,0 +1,75 @@
+include "globals.mzn";
+
+int: w;
+int: n;
+
+int: width = 1;
+int: height = 2;
+
+set of int: CIRCUITS = 1..n;
+array[CIRCUITS, 1..2] of int: dims;
+
+int: upper_bound = sum(i in CIRCUITS)(dims[i, height]);
+
+array[CIRCUITS] of var 0..w: pos_x; % Could let w = w - 1, since we're zero-indexing.
+array[CIRCUITS] of var 0..upper_bound: pos_y;
+array[CIRCUITS] of var 0..1: rotation;
+
+array[CIRCUITS] of var 0..upper_bound+w*1000: pos = [pos_x[i]*1000+pos_y[i] | i in CIRCUITS];
+
+% Objective variable
+var 0..upper_bound: l;
+
+constraint
+  l = max(i in CIRCUITS)(
+    pos_y[i] + dims[i, 2-rotation[i]]
+  );
+
+constraint % Ensure max width
+  forall(i in CIRCUITS)(
+    pos_x[i] + dims[i, width] <= w
+  );
+  
+  
+%implied constraint, no (pos_x, pos_y) can be the same
+constraint
+    alldifferent(pos);
+
+constraint % Ensure no overlap
+  forall(i in CIRCUITS)(
+    forall(j in CIRCUITS where i != j)( % Can also have 'less than', might have impact on search
+      (not overlapping_regular(i, j) /\ rotation[j] = 0) \/ (not overlapping_rotated(i, j) /\ pos_x[j]+dims[j, height] <= w /\ rotation[j]=1) % changing input dir rotates the circuit
+    )
+  );
+
+/*constraint % Ensure no overlap
+  forall(i in CIRCUITS)(
+    forall(j in CIRCUITS where i != j /\ y_overlapping(i,j, height))( % Can also have 'less than', might have impact on search
+      not x_overlapping(i,j, width)
+    )
+  );
+*/
+% Objective function
+solve minimize l;
+
+%function var int: format_rotation_width(var int: i, var int: dir) = if dir == width then rotation[i] + 1 else 2 - rotation[i] endif;
+
+%overlapping x-direction predicate
+predicate x_overlapping(var int:i, var int:j, var int: dir) = 
+   pos_x[i] + dims[i, width] > pos_x[j] /\ pos_x[j] + dims[j, dir] > pos_x[i];
+   
+%overlapping y-direction predicate
+predicate y_overlapping(var int:i, var int:j, var int: dir) = 
+   pos_y[i] + dims[i, height] > pos_y[j] /\ pos_y[j] + dims[j, dir] > pos_y[i];
+   
+predicate overlapping_regular(var int:i, var int:j) = 
+   x_overlapping(i, j, width) /\ y_overlapping(i, j, height);
+
+predicate overlapping_rotated(var int:i, var int:j) = 
+   x_overlapping(i, j, height) /\ y_overlapping(i, j, width);
+   
+output 
+  ["\(w) \(l)\n"] ++
+  ["\(n)\n"] ++
+  [show(dims[i, rotation[i]+1]) ++ " " ++ show(dims[i, 2-rotation[i]]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS]++
+  [show(rotation[i]) ++ " " | i in CIRCUITS];
