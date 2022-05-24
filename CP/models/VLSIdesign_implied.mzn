@@ -11,8 +11,17 @@ array[CIRCUITS, 1..2] of int: dims;
 
 int: upper_bound = sum(i in CIRCUITS)(dims[i, height]);
 
+%lower_bound
+array[CIRCUITS] of int: sorted_heights = sort(dims[.., height]);
+int: n_rows = ceil((sum(i in CIRCUITS)(dims[i, width])) / w);
+set of int: number_of_rows = 1..n_rows;
+int: lower_bound = sum(i in number_of_rows)(sorted_heights[i]);
+
+
 array[CIRCUITS] of var 0..w: pos_x; % Could let w = w - 1, since we're zero-indexing.
-array[CIRCUITS] of var 0..upper_bound: pos_y;
+array[CIRCUITS] of var lower_bound..upper_bound: pos_y;
+
+array[CIRCUITS] of var 0..upper_bound+w*1000: pos = [pos_x[i]*1000+pos_y[i] | i in CIRCUITS];
 
 % Objective variable
 var 0..upper_bound: l;
@@ -27,26 +36,17 @@ constraint % Ensure max width
     pos_x[i] + dims[i, width] <= w
   );
 
-/*constraint % Ensure no overlap
-  forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j /\ x_overlapping(i,j))( % Can also have 'less than', might have impact on search
-      not y_overlapping(i, j)
-    )
-  );
-
-constraint % Ensure no overlap
-  forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j /\ y_overlapping(i,j))( % Can also have 'less than', might have impact on search
-      not x_overlapping(i,j)
-    )
-  );*/
   
- constraint % Ensure no overlap
+constraint % Ensure no overlap
   forall(i in CIRCUITS)(
     forall(j in CIRCUITS where i != j)( % Can also have 'less than', might have impact on search
       not overlapping(i,j)
     )
   );
+  
+%implied constraint, no (pos_x, pos_y) can be the same
+constraint
+  alldifferent(pos);
 
 % Objective function
 solve minimize l;

@@ -11,9 +11,18 @@ array[CIRCUITS, 1..2] of int: dims;
 
 int: upper_bound = sum(i in CIRCUITS)(dims[i, height]);
 
+%lower_bound
+array[CIRCUITS] of int: sorted_heights = sort(dims[.., height]);
+int: n_rows = ceil((sum(i in CIRCUITS)(dims[i, width])) / w);
+set of int: number_of_rows = 1..n_rows;
+int: lower_bound = sum(i in number_of_rows)(sorted_heights[i]);
+
+
 array[CIRCUITS] of var 0..w: pos_x; % Could let w = w - 1, since we're zero-indexing.
-array[CIRCUITS] of var 0..upper_bound: pos_y;
+array[CIRCUITS] of var lower_bound..upper_bound: pos_y;
 array[CIRCUITS] of var 0..1: rotation;
+
+array[CIRCUITS] of var 0..upper_bound+w*1000: pos = [pos_x[i]*1000+pos_y[i] | i in CIRCUITS];
 
 % Objective variable
 var 0..upper_bound: l;
@@ -27,7 +36,11 @@ constraint % Ensure max width
   forall(i in CIRCUITS)(
     pos_x[i] + dims[i, width] <= w
   );
-
+  
+%implied constraint, no (pos_x, pos_y) can be the same
+constraint
+   alldifferent(pos);
+    
 constraint % Ensure no overlap
   forall(i in CIRCUITS)(
     forall(j in CIRCUITS where i != j)( % Can also have 'less than', might have impact on search
@@ -35,17 +48,17 @@ constraint % Ensure no overlap
     )
   );
 
-/*constraint % Ensure no overlap
-  forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j /\ y_overlapping(i,j, height))( % Can also have 'less than', might have impact on search
-      not x_overlapping(i,j, width)
-    )
-  );
-*/
+% Break symmetry vertically and horizontal flip  
+constraint
+  lex_lesseq(pos_x, [ pos_x[i] | i in reverse(CIRCUITS) ]) /\ lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);
+
+% Break symmetry of flipping squares  
+constraint
+  forall(i in CIRCUITS)
+    (dims[i, width]=dims[i, height] -> rotation[i] = 0);
+    
 % Objective function
 solve minimize l;
-
-%function var int: format_rotation_width(var int: i, var int: dir) = if dir == width then rotation[i] + 1 else 2 - rotation[i] endif;
 
 %overlapping x-direction predicate
 predicate x_overlapping(var int:i, var int:j, var int: dir) = 
@@ -64,5 +77,4 @@ predicate overlapping_rotated(var int:i, var int:j) =
 output 
   ["\(w) \(l)\n"] ++
   ["\(n)\n"] ++
-  [show(dims[i, rotation[i]+1]) ++ " " ++ show(dims[i, 2-rotation[i]]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS]++
-  [show(rotation[i]) ++ " " | i in CIRCUITS];
+  [show(dims[i, rotation[i]+1]) ++ " " ++ show(dims[i, 2-rotation[i]]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS]; 
