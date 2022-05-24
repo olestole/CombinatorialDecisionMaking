@@ -18,7 +18,7 @@ class Solver(Enum):
 
 def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_type: str = "VLSIdesign", visualize: bool = False, intermediate_solutions: bool = False) -> minizinc.Result:
     # Model path
-    model_path = f'{model_type}.mzn'
+    model_path = f'./models/{model_type}.mzn'
 
     # Create a MiniZinc model
     model = minizinc.Model()
