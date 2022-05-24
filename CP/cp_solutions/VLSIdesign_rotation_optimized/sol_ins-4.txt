@@ -8,4 +8,4 @@
 5 4 6 0
 8 4 3 4
 
-{'paths': 0, 'flatBoolVars': 397, 'flatIntVars': 53, 'flatBoolConstraints': 256, 'flatIntConstraints': 229, 'evaluatedReifiedConstraints': 178, 'evaluatedHalfReifiedConstraints': 15, 'eliminatedImplications': 22, 'method': 'minimize', 'flatTime': 0.343077, 'time': 0.025, 'nodes': 872, 'failures': 218, 'restarts': 19, 'variables': 2551, 'intVars': 59, 'boolVariables': 2490, 'propagators': 406, 'propagations': 57345, 'peakDepth': 40, 'nogoods': 218, 'backjumps': 99, 'peakMem': 0.0, 'initTime': 0.009, 'solveTime': 0.016, 'objective': 11, 'optTime': 0.014, 'baseMem': 0.0, 'trailMem': 0.01, 'randomSeed': 1653300360, 'nSolutions': 19}
+0.022 0.014 218 19
