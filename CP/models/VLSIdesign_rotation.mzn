@@ -11,8 +11,15 @@ array[CIRCUITS, 1..2] of int: dims;
 
 int: upper_bound = sum(i in CIRCUITS)(dims[i, height]);
 
+%lower_bound
+array[CIRCUITS] of int: sorted_heights = sort(dims[.., height]);
+int: n_rows = ceil((sum(i in CIRCUITS)(dims[i, width])) / w);
+set of int: number_of_rows = 1..n_rows;
+int: lower_bound = sum(i in number_of_rows)(sorted_heights[i]);
+
+
 array[CIRCUITS] of var 0..w: pos_x; % Could let w = w - 1, since we're zero-indexing.
-array[CIRCUITS] of var 0..upper_bound: pos_y;
+array[CIRCUITS] of var lower_bound..upper_bound: pos_y;
 array[CIRCUITS] of var 0..1: rotation;
 
 % Objective variable
