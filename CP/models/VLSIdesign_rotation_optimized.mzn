@@ -29,9 +29,10 @@ constraint % Ensure max width
   forall(i in CIRCUITS)(
     pos_x[i] + dims[i, width] <= w
   );
+  
 %implied constraint, no (pos_x, pos_y) can be the same
 constraint
-    alldifferent(pos);
+   alldifferent(pos);
     
 constraint % Ensure no overlap
   forall(i in CIRCUITS)(
@@ -42,16 +43,15 @@ constraint % Ensure no overlap
 
 % Break symmetry vertically and horizontal flip  
 constraint
-    lex_lesseq(pos_x, [ pos_x[i] | i in reverse(CIRCUITS) ]) /\ lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);
+  lex_lesseq(pos_x, [ pos_x[i] | i in reverse(CIRCUITS) ]) /\ lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);
 
-  % Break symmetry of flipping squares  
+% Break symmetry of flipping squares  
 constraint
   forall(i in CIRCUITS)
     (dims[i, width]=dims[i, height] -> rotation[i] = 0);
     
 % Objective function
 solve minimize l;
-
 
 %overlapping x-direction predicate
 predicate x_overlapping(var int:i, var int:j, var int: dir) = 
@@ -71,5 +71,3 @@ output
   ["\(w) \(l)\n"] ++
   ["\(n)\n"] ++
   [show(dims[i, rotation[i]+1]) ++ " " ++ show(dims[i, 2-rotation[i]]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS]; 
-  /*++
-  [show(rotation[i]) ++ " " | i in CIRCUITS];*/

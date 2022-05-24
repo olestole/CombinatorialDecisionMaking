@@ -33,7 +33,7 @@ constraint % Ensure max width
   
 %implied constraint, no (pos_x, pos_y) can be the same
 constraint
-    alldifferent(pos);
+  alldifferent(pos);
 
 constraint % Ensure no overlap
   forall(i in CIRCUITS)(
@@ -42,17 +42,8 @@ constraint % Ensure no overlap
     )
   );
 
-/*constraint % Ensure no overlap
-  forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j /\ y_overlapping(i,j, height))( % Can also have 'less than', might have impact on search
-      not x_overlapping(i,j, width)
-    )
-  );
-*/
 % Objective function
 solve minimize l;
-
-%function var int: format_rotation_width(var int: i, var int: dir) = if dir == width then rotation[i] + 1 else 2 - rotation[i] endif;
 
 %overlapping x-direction predicate
 predicate x_overlapping(var int:i, var int:j, var int: dir) = 
@@ -71,5 +62,4 @@ predicate overlapping_rotated(var int:i, var int:j) =
 output 
   ["\(w) \(l)\n"] ++
   ["\(n)\n"] ++
-  [show(dims[i, rotation[i]+1]) ++ " " ++ show(dims[i, 2-rotation[i]]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS]++
-  [show(rotation[i]) ++ " " | i in CIRCUITS];
+  [show(dims[i, rotation[i]+1]) ++ " " ++ show(dims[i, 2-rotation[i]]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS];

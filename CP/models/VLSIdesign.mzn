@@ -26,22 +26,8 @@ constraint % Ensure max width
   forall(i in CIRCUITS)(
     pos_x[i] + dims[i, width] <= w
   );
-
-/*constraint % Ensure no overlap
-  forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j /\ x_overlapping(i,j))( % Can also have 'less than', might have impact on search
-      not y_overlapping(i, j)
-    )
-  );
-
-constraint % Ensure no overlap
-  forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j /\ y_overlapping(i,j))( % Can also have 'less than', might have impact on search
-      not x_overlapping(i,j)
-    )
-  );*/
   
- constraint % Ensure no overlap
+constraint % Ensure no overlap
   forall(i in CIRCUITS)(
     forall(j in CIRCUITS where i != j)( % Can also have 'less than', might have impact on search
       not overlapping(i,j)
