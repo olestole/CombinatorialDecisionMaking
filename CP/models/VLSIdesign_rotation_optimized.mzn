@@ -21,6 +21,8 @@ int: lower_bound = sum(i in number_of_rows)(sorted_heights[i]);
 array[CIRCUITS] of var 0..w: pos_x; % Could let w = w - 1, since we're zero-indexing.
 array[CIRCUITS] of var 0..upper_bound: pos_y;
 array[CIRCUITS] of var 0..1: rotation;
+array[CIRCUITS] of var 0..upper_bound: heights;
+array[CIRCUITS] of var 0..w: widths; 
 
 array[CIRCUITS] of var 0..upper_bound+w*1000: pos = [pos_x[i]*1000+pos_y[i] | i in CIRCUITS];
 
@@ -40,14 +42,15 @@ constraint % Ensure max width
 %implied constraint, no (pos_x, pos_y) can be the same
 constraint
    alldifferent(pos);
-    
-constraint % Ensure no overlap
-  forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j)( % Can also have 'less than', might have impact on search
-      (not overlapping_regular(i, j) /\ rotation[j] = 0) \/ (not overlapping_rotated(i, j) /\ pos_x[j]+dims[j, height] <= w /\ rotation[j]=1) % changing input dir rotates the circuit
-    )
-  );
 
+% Global constraint no overlap 
+constraint 
+    forall(i in CIRCUITS) (
+        widths[i] = dims[i , rotation[i]+1] /\ heights[i] = dims[i , 2-rotation[i]]
+    );
+
+constraint diffn(pos_x, pos_y, widths, heights);
+    
 % Break symmetry vertically and horizontal flip  
 constraint
   lex_lesseq(pos_x, [ pos_x[i] | i in reverse(CIRCUITS) ]) /\ lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);
