@@ -16,6 +16,14 @@ def visualize_output(output):
     w = output[0][0]
     l = output[0][1]
     n = output[1][0]
+    roation = output[-1]
+    if len(roation) != n:
+            roation = [0]*n
+            output.append(roation)
+    elif n==4:
+            if not all([ r == 0 or r == 1 for r in roation ]):
+                roation = [0]*n
+                output.append(roation)
 
     colors = np.array(['red', 'green', 'blue', 'yellow', 'orange', 'pink', 'purple', 'brown']*(math.ceil(n/8)))
 
@@ -24,9 +32,10 @@ def visualize_output(output):
     ax.set_xticks(np.arange(0, w+1, 1))
     ax.set_yticks(np.arange(0, l+1, 1))
     plt.grid()
-    for i, [width, height, x, y] in enumerate(np.array(output[2:])):
+    for i, [width, height, x, y] in enumerate(np.array(output[2:-1])):
         rect = patches.Rectangle((x, y), width, height, linewidth=3, edgecolor='black', facecolor=colors[i])
         ax.add_patch(rect)
+        ax.text(x+width/2-0.7, y+height/2, 'Rotated' if roation[i] else '')
     plt.show()
     return fig
 
