@@ -19,13 +19,13 @@ int: lower_bound = sum(i in number_of_rows)(sorted_heights[i]);
 
 
 array[CIRCUITS] of var 0..w: pos_x; % Could let w = w - 1, since we're zero-indexing.
-array[CIRCUITS] of var lower_bound..upper_bound: pos_y;
+array[CIRCUITS] of var 0..upper_bound: pos_y;
 array[CIRCUITS] of var 0..1: rotation;
 
 array[CIRCUITS] of var 0..upper_bound+w*1000: pos = [pos_x[i]*1000+pos_y[i] | i in CIRCUITS];
 
 % Objective variable
-var 0..upper_bound: l;
+var lower_bound..upper_bound: l;
 
 constraint
   l = max(i in CIRCUITS)(
