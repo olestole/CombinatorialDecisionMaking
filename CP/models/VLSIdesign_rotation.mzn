@@ -62,4 +62,5 @@ predicate overlapping_rotated(var int:i, var int:j) =
 output 
   ["\(w) \(l)\n"] ++
   ["\(n)\n"] ++
-  [show(dims[i, rotation[i]+1]) ++ " " ++ show(dims[i, 2-rotation[i]]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS];
+  [show(dims[i, rotation[i]+1]) ++ " " ++ show(dims[i, 2-rotation[i]]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS]++ 
+  [show(rotation[i]) ++ " " | i in CIRCUITS];
