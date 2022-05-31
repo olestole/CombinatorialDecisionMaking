@@ -34,7 +34,7 @@ constraint
 
 constraint % Ensure max width
   forall(i in CIRCUITS)(
-    pos_x[i] + dims[i, width] <= w
+    pos_x[i] + dims[i, rotation[i]+1] <= w
   );
   
 %implied constraint, no (pos_x, pos_y) can be the same
