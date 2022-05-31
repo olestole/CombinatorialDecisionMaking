@@ -17,7 +17,7 @@ def read_output(filename):
     dims = np.array(arr[2:])
     return w, n, dims
 
-def visualize_output(output, dims):
+def visualize_output(output, dims, instance_number):
     w = output[0][0]
     l = output[0][1]
     n = output[1][0]
@@ -26,6 +26,7 @@ def visualize_output(output, dims):
 
 
     fig = plt.figure(figsize=(w/2, l/2))
+    fig.suptitle(f"Instance {instance_number}")
     ax = fig.gca()
     ax.set_xticks(np.arange(0, w+1, 1))
     ax.set_yticks(np.arange(0, l+1, 1))
