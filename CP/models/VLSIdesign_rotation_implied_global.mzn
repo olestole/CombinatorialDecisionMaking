@@ -53,20 +53,6 @@ constraint diffn(pos_x, pos_y, widths, heights);
 
 % Objective function
 solve minimize l;
-
-%overlapping x-direction predicate
-predicate x_overlapping(var int:i, var int:j, var int: dir) = 
-   pos_x[i] + dims[i, width] > pos_x[j] /\ pos_x[j] + dims[j, dir] > pos_x[i];
-   
-%overlapping y-direction predicate
-predicate y_overlapping(var int:i, var int:j, var int: dir) = 
-   pos_y[i] + dims[i, height] > pos_y[j] /\ pos_y[j] + dims[j, dir] > pos_y[i];
-   
-predicate overlapping_regular(var int:i, var int:j) = 
-   x_overlapping(i, j, width) /\ y_overlapping(i, j, height);
-
-predicate overlapping_rotated(var int:i, var int:j) = 
-   x_overlapping(i, j, height) /\ y_overlapping(i, j, width);
    
 output 
   ["\(w) \(l)\n"] ++
