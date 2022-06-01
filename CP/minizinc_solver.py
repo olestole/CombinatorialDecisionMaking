@@ -97,7 +97,6 @@ def parse_statistics(statistics):
     return " ".join(stats)
 
 def handler(signum, frame):
-    print("Forever is over!")
     raise Exception("end of time")
 
 if __name__ == "__main__":
@@ -117,5 +116,8 @@ if __name__ == "__main__":
             else:
                 print(output)    
         except Exception:
-            print("timeout")
+            if (output_to_file):
+                output = 60*5
+                output_file = f"./cp_solutions/{model_type}/sol_ins-{i}.txt"
+                utils.write_output_to_file(output_file, str(output))
             continue
