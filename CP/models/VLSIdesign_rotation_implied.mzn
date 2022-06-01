@@ -44,7 +44,7 @@ constraint
 
 constraint % Ensure no overlap
   forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j)( % Can also have 'less than', might have impact on search
+    forall(j in CIRCUITS where i < j)(
       (not overlapping(i, j) /\ rotation[j] = 0) \/ (not overlapping(i, j) /\ rotation[j]=1) % changing input dir rotates the circuit
     )
   );
