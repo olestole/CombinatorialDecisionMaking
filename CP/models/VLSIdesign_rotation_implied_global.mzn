@@ -29,6 +29,10 @@ array[CIRCUITS] of var 0..upper_bound+w*1000: pos = [pos_x[i]*1000+pos_y[i] | i 
 % Objective variable
 var lower_bound..upper_bound: l;
 
+%implied constraint, no (pos_x, pos_y) can be the same
+constraint
+  alldifferent(pos);
+
 constraint
   l = max(i in CIRCUITS)(
     pos_y[i] + dims[i, 2-rotation[i]]
@@ -38,10 +42,6 @@ constraint % Ensure max width
   forall(i in CIRCUITS)(
     pos_x[i] + dims[i, rotation[i]+1] <= w
   );
-  
-%implied constraint, no (pos_x, pos_y) can be the same
-constraint
-   alldifferent(pos);
 
 % Global constraint no overlap 
 constraint 
@@ -50,16 +50,7 @@ constraint
     );
 
 constraint diffn(pos_x, pos_y, widths, heights);
-    
-% Break symmetry vertically and horizontal flip  
-constraint
-  lex_lesseq(pos_x, [ pos_x[i] | i in reverse(CIRCUITS) ]) /\ lex_lesseq(pos_y, [ pos_y[i] | i in reverse(CIRCUITS) ]);
 
-% Break symmetry of flipping squares  
-constraint
-  forall(i in CIRCUITS)
-    (dims[i, width]=dims[i, height] -> rotation[i] = 0);
-    
 % Objective function
 solve minimize l;
 
@@ -80,5 +71,5 @@ predicate overlapping_rotated(var int:i, var int:j) =
 output 
   ["\(w) \(l)\n"] ++
   ["\(n)\n"] ++
-  [show(dims[i, rotation[i]+1]) ++ " " ++ show(dims[i, 2-rotation[i]]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS]++ 
-  [show(rotation[i]) ++ " " | i in CIRCUITS]; 
+  [show(dims[i, rotation[i]+1]) ++ " " ++ show(dims[i, 2-rotation[i]]) ++ " " ++ show(pos_x[i]) ++ " " ++ show(pos_y[i]) ++ "\n" | i in CIRCUITS] ++ 
+  [show(rotation[i]) ++ " " | i in CIRCUITS];
