@@ -38,3 +38,8 @@ def visualize_output(output, dims, instance_number):
             ax.text(x+width/2-0.7, y+height/2, 'Rotated')
     plt.show()
     return fig
+
+def write_output_to_file(file_path, output):
+    with open(file_path, "w") as f:
+        f.write(output)
+        f.write("\n")
