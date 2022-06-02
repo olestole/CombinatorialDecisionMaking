@@ -53,7 +53,7 @@ def parse_args(argv):
     model_type = 'VLSIdesign'
     solver = Solver.CHUFFED
     start = 1
-    stop = 5
+    stop = 40
     output_to_file = True
 
     try:
@@ -101,7 +101,7 @@ def handler(signum, frame):
 
 if __name__ == "__main__":
     model_type, solver, start, stop, output_to_file = parse_args(sys.argv[1:])
-    for i in range(start, stop):
+    for i in range(start, stop+1):
         signal.signal(signal.SIGALRM, handler)
         signal.alarm(60*5) #5 min timeout
         print("start instance: ", i)
