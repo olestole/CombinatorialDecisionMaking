@@ -1,0 +1,89 @@
+Welcome to the CBC MILP Solver 
+Version: 2.10.3 
+Build Date: Dec 15 2019 
+
+command line - /usr/local/lib/python3.9/site-packages/pulp/apis/../solverdir/cbc/osx/64/cbc /var/folders/t4/vnxj6kkj2n97knry5lnrscx00000gn/T/dc4e33f4dbf54909ad3a160fd7fc0e3f-pulp.mps sec 300 timeMode elapsed branch printingOptions all solution /var/folders/t4/vnxj6kkj2n97knry5lnrscx00000gn/T/dc4e33f4dbf54909ad3a160fd7fc0e3f-pulp.sol (default strategy 1)
+At line 2 NAME          MODEL
+At line 3 ROWS
+At line 65 COLUMNS
+At line 344 RHS
+At line 405 BOUNDS
+At line 458 ENDATA
+Problem MODEL has 60 rows, 51 columns and 175 elements
+Coin0008I MODEL read with 0 errors
+seconds was changed from 1e+100 to 300
+Option for timeMode changed from cpu to elapsed
+Continuous objective value is 9 - 0.00 seconds
+Cgl0004I processed model has 55 rows, 51 columns (51 integer (40 of which binary)) and 170 elements
+Cutoff increment increased from 1e-05 to 0.9999
+Cbc0038I Initial state - 40 integers unsatisfied sum - 10.6667
+Cbc0038I Pass   1: suminf.    8.51852 (28) obj. 15 iterations 10
+Cbc0038I Pass   2: suminf.    4.92593 (18) obj. 15 iterations 16
+Cbc0038I Pass   3: suminf.    4.25926 (16) obj. 15 iterations 5
+Cbc0038I Pass   4: suminf.    0.66667 (2) obj. 18 iterations 19
+Cbc0038I Pass   5: suminf.    0.33333 (1) obj. 18 iterations 1
+Cbc0038I Solution found of 18
+Cbc0038I Cleaned solution of 18
+Cbc0038I Before mini branch and bound, 3 integers at bound fixed and 0 continuous
+Cbc0038I Full problem 55 rows 51 columns, reduced to 40 rows 35 columns
+Cbc0038I Mini branch and bound improved solution from 18 to 12 (0.02 seconds)
+Cbc0038I Round again with cutoff of 10.8001
+Cbc0038I Pass   6: suminf.    8.66667 (31) obj. 10 iterations 1
+Cbc0038I Pass   7: suminf.    6.99955 (28) obj. 10.8001 iterations 11
+Cbc0038I Pass   8: suminf.    6.33288 (26) obj. 10.8001 iterations 3
+Cbc0038I Pass   9: suminf.    1.73305 (8) obj. 10.8001 iterations 26
+Cbc0038I Pass  10: suminf.    1.17009 (7) obj. 10.8001 iterations 3
+Cbc0038I Pass  11: suminf.    1.26640 (5) obj. 10.8001 iterations 6
+Cbc0038I Pass  12: suminf.    0.68861 (5) obj. 10.8001 iterations 2
+Cbc0038I Pass  13: suminf.    2.31084 (9) obj. 10.8001 iterations 13
+Cbc0038I Pass  14: suminf.    1.97750 (8) obj. 10.8001 iterations 2
+Cbc0038I Pass  15: suminf.    1.00722 (4) obj. 10.8001 iterations 8
+Cbc0038I Pass  16: suminf.    1.00722 (4) obj. 10.8001 iterations 1
+Cbc0038I Pass  17: suminf.    0.71092 (4) obj. 10.8001 iterations 4
+Cbc0038I Pass  18: suminf.    4.70334 (21) obj. 10.8001 iterations 24
+Cbc0038I Pass  19: suminf.    4.56991 (21) obj. 10.8001 iterations 3
+Cbc0038I Pass  20: suminf.    2.28112 (10) obj. 10.8001 iterations 14
+Cbc0038I Pass  21: suminf.    1.94787 (9) obj. 10.8001 iterations 8
+Cbc0038I Pass  22: suminf.    2.55519 (11) obj. 10.8001 iterations 12
+Cbc0038I Pass  23: suminf.    1.94787 (9) obj. 10.8001 iterations 13
+Cbc0038I Pass  24: suminf.    2.44408 (10) obj. 10.8001 iterations 11
+Cbc0038I Pass  25: suminf.    2.15527 (13) obj. 10.8001 iterations 19
+Cbc0038I Pass  26: suminf.    2.15527 (13) obj. 10.8001 iterations 0
+Cbc0038I Pass  27: suminf.    1.68851 (9) obj. 10.8001 iterations 15
+Cbc0038I Pass  28: suminf.    1.44416 (9) obj. 10.8001 iterations 2
+Cbc0038I Pass  29: suminf.    0.91083 (5) obj. 10.8001 iterations 10
+Cbc0038I Pass  30: suminf.    0.91083 (5) obj. 10.8001 iterations 3
+Cbc0038I Pass  31: suminf.    2.92574 (13) obj. 10.8001 iterations 18
+Cbc0038I Pass  32: suminf.    2.25908 (11) obj. 10.8001 iterations 3
+Cbc0038I Pass  33: suminf.    1.22186 (7) obj. 10.8001 iterations 12
+Cbc0038I Pass  34: suminf.    1.11074 (6) obj. 10.8001 iterations 4
+Cbc0038I Pass  35: suminf.    1.11074 (6) obj. 10.8001 iterations 3
+Cbc0038I No solution found this major pass
+Cbc0038I Before mini branch and bound, 0 integers at bound fixed and 0 continuous
+Cbc0038I Full problem 55 rows 51 columns, reduced to 55 rows 51 columns
+Cbc0038I Mini branch and bound improved solution from 12 to 9 (0.04 seconds)
+Cbc0038I After 0.04 seconds - Feasibility pump exiting with objective of 9 - took 0.03 seconds
+Cbc0012I Integer solution of 9 found by feasibility pump after 0 iterations and 0 nodes (0.04 seconds)
+Cbc0001I Search completed - best objective 9, took 0 iterations and 0 nodes (0.04 seconds)
+Cbc0035I Maximum depth 0, 0 variables fixed on reduced cost
+Cuts at root node changed objective from 9 to 9
+Probing was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Gomory was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Knapsack was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+Clique was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+MixedIntegerRounding2 was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+FlowCover was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+TwoMirCuts was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+ZeroHalf was tried 0 times and created 0 cuts of which 0 were active after adding rounds of cuts (0.000 seconds)
+
+Result - Optimal solution found
+
+Objective value:                9.00000000
+Enumerated nodes:               0
+Total iterations:               0
+Time (CPU seconds):             0.03
+Time (Wallclock seconds):       0.05
+
+Option for printingOptions changed from normal to all
+Total time (CPU seconds):       0.03   (Wallclock seconds):       0.05
+
