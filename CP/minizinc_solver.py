@@ -8,6 +8,8 @@ import utils
 from matplotlib import pyplot as plt
 import sys
 import getopt
+import time
+import signal
 
 SOLVER = "chuffed"
 INSTANCE_NUMBER = 12
@@ -51,8 +53,8 @@ def parse_args(argv):
     model_type = 'VLSIdesign'
     solver = Solver.CHUFFED
     start = 1
-    stop = 5
-    output_to_file = False
+    stop = 40
+    output_to_file = True
 
     try:
       opts, args = getopt.getopt(argv, "hm:s:r:o", ["help", "model=", "solver=", "range=", "output-file"])
@@ -94,15 +96,28 @@ def parse_statistics(statistics):
     stats = [str(x) for x in stats]
     return " ".join(stats)
 
+def handler(signum, frame):
+    raise Exception("end of time")
+
 if __name__ == "__main__":
     model_type, solver, start, stop, output_to_file = parse_args(sys.argv[1:])
-    for i in range(start, stop):
-        result = solve(solver, instance_number = i, model_type=model_type, visualize=False)
-        stats = parse_statistics(result.statistics)
-        output = f"{result}\n{stats}"
+    for i in range(start, stop+1):
+        signal.signal(signal.SIGALRM, handler)
+        signal.alarm(60*5) #5 min timeout
+        print("start instance: ", i)
+        try:
+            result = solve(solver, instance_number = i, model_type=model_type, visualize=False)
+            stats = parse_statistics(result.statistics)
+            output = f"{result}\n{stats}"
 
-        if (output_to_file):
-            output_file = f"./cp_solutions/{model_type}/sol_ins-{i}.txt"
-            utils.write_output_to_file(output_file, output)
-        else:
-            print(output)
+            if (output_to_file):
+                output_file = f"./cp_solutions/{model_type}/sol_ins-{i}.txt"
+                utils.write_output_to_file(output_file, output)
+            else:
+                print(output)    
+        except Exception:
+            if (output_to_file):
+                output = 60*5
+                output_file = f"./cp_solutions/{model_type}/sol_ins-{i}.txt"
+                utils.write_output_to_file(output_file, str(output))
+            continue

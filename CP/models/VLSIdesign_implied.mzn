@@ -39,7 +39,7 @@ constraint % Ensure max width
   
 constraint % Ensure no overlap
   forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j)( % Can also have 'less than', might have impact on search
+    forall(j in CIRCUITS where i < j)(
       not overlapping(i,j)
     )
   );
