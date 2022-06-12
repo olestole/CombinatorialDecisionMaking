@@ -37,8 +37,8 @@ constraint % Ensure max width
 
 constraint % Ensure no overlap
   forall(i in CIRCUITS)(
-    forall(j in CIRCUITS where i != j)( % Can also have 'less than', might have impact on search
-      (not overlapping_regular(i, j) /\ rotation[j] = 0) \/ (not overlapping_rotated(i, j) /\ pos_x[j]+dims[j, height] <= w /\ rotation[j]=1) % changing input dir rotates the circuit
+    forall(j in CIRCUITS where i < j)(
+      (not overlapping(i, j) /\ rotation[j] = 0) \/ (not overlapping(i, j) /\ rotation[j]=1) % changing input dir rotates the circuit
     )
   );
 
@@ -46,19 +46,16 @@ constraint % Ensure no overlap
 solve minimize l;
 
 %overlapping x-direction predicate
-predicate x_overlapping(var int:i, var int:j, var int: dir) = 
-   pos_x[i] + dims[i, width] > pos_x[j] /\ pos_x[j] + dims[j, dir] > pos_x[i];
+predicate x_overlapping(var int:i, var int:j) = 
+   pos_x[i] + dims[i, rotation[i]+1] > pos_x[j] /\ pos_x[j] + dims[j, rotation[j]+1] > pos_x[i];
    
 %overlapping y-direction predicate
-predicate y_overlapping(var int:i, var int:j, var int: dir) = 
-   pos_y[i] + dims[i, height] > pos_y[j] /\ pos_y[j] + dims[j, dir] > pos_y[i];
+predicate y_overlapping(var int:i, var int:j) = 
+   pos_y[i] + dims[i, 2-rotation[i]] > pos_y[j] /\ pos_y[j] + dims[j, 2-rotation[j]] > pos_y[i];
    
-predicate overlapping_regular(var int:i, var int:j) = 
-   x_overlapping(i, j, width) /\ y_overlapping(i, j, height);
+predicate overlapping(var int:i, var int:j) = 
+   x_overlapping(i, j) /\ y_overlapping(i, j);
 
-predicate overlapping_rotated(var int:i, var int:j) = 
-   x_overlapping(i, j, height) /\ y_overlapping(i, j, width);
-   
 output 
   ["\(w) \(l)\n"] ++
   ["\(n)\n"] ++
