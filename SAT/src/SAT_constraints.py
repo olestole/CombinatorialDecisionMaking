@@ -1,8 +1,5 @@
 from itertools import combinations
 from z3 import *
-import matplotlib.pyplot as plt
-import numpy as np
-
 
 def at_least_one_np(bool_vars):
     return Or(bool_vars)

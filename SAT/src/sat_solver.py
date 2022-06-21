@@ -192,7 +192,7 @@ def all_smt(s, initial_terms, l, w, n, break_symmetry):
     yield from all_smt_rec(list(initial_terms), l, numb_solutions, w, n, break_symmetry)
 
 def vlsi_design_one_solution(instance_number: int, visualize = True, rotation=True) -> None:
-    file_path = f"../instances/ins-{instance_number}.txt"
+    file_path = f"../../instances/ins-{instance_number}.txt"
     w, n, dims = utils.read_output(file_path)
     l = compute_lb(w, dims, rotation)
     logging.info(f"Trying with l= {l}")
@@ -210,7 +210,7 @@ def vlsi_design_one_solution(instance_number: int, visualize = True, rotation=Tr
     return w, n, l, dims, sol, s
 
 def vlsi_design_all_solutions(instance_number: int, visualize, rotation=True, break_symmetry=True) -> None:
-    file_path = f"../instances/ins-{instance_number}.txt"
+    file_path = f"../../instances/ins-{instance_number}.txt"
     w, n, dims = utils.read_output(file_path)
     l = compute_lb(w, dims, rotation)
     logging.info(f"Trying with l= {l}")
@@ -287,7 +287,7 @@ def output_results(w, l, n, dims, sol, s):
 def main():
     i = sys.argv[1]
     print(f"Instance {i}")
-    output_file = f"./out/sat_solutions/sol_ins_no_rotation_20s-{i}.txt"
+    output_file = f"../out/sat_solutions/sol_ins_no_rotation_20s-{i}.txt"
     logging.info(f"Running file {output_file}")
     w, n, l, dims, sol, s = vlsi_design(i, allSolutions=ALL_SOLUTIONS, rotation=ROTATION, visualize=VISUALIZE, break_symmetry=BREAK_SYMMETRY)
 
