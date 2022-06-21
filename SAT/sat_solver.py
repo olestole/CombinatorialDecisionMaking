@@ -287,7 +287,7 @@ def output_results(w, l, n, dims, sol, s):
 def main():
     i = sys.argv[1]
     print(f"Instance {i}")
-    output_file = f"./sat_solutions/sol_ins_no_rotation_20s-{i}.txt"
+    output_file = f"./out/sat_solutions/sol_ins_no_rotation_20s-{i}.txt"
     logging.info(f"Running file {output_file}")
     w, n, l, dims, sol, s = vlsi_design(i, allSolutions=ALL_SOLUTIONS, rotation=ROTATION, visualize=VISUALIZE, break_symmetry=BREAK_SYMMETRY)
 
