@@ -20,7 +20,7 @@ class Solver(Enum):
 
 def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_type: str = "VLSIdesign", visualize: bool = False, intermediate_solutions: bool = False) -> minizinc.Result:
     # Model path
-    model_path = f'../models/{model_type}.mzn'
+    model_path = f"../models/{model_type}.mzn"
 
     # Create a MiniZinc model
     model = minizinc.Model()
@@ -30,9 +30,8 @@ def solve(solver_type: Solver = Solver.CHUFFED, instance_number: int = 1, model_
         model.add_string(f.read())
 
     # Load the data-instance from a file
-    dzn_file_path = os.path.join('dzn_instances', f'ins-{instance_number}.dzn')
-    full_dzn_file_path = os.path.join(os.getcwd(), dzn_file_path)
-    with open(full_dzn_file_path, 'r') as f:
+    dzn_file_path = f"../dzn_instances/ins-{instance_number}.dzn"
+    with open(dzn_file_path, 'r') as f:
         model.add_string(f.read())
 
     # Transform Model into a instance
@@ -100,6 +99,7 @@ def handler(signum, frame):
     raise Exception("end of time")
 
 if __name__ == "__main__":
+    print(os.getcwd())
     model_type, solver, start, stop, output_to_file = parse_args(sys.argv[1:])
     for i in range(start, stop+1):
         signal.signal(signal.SIGALRM, handler)
