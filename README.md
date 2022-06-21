@@ -60,7 +60,7 @@ $ ./minizinc_solver.py
 - Specify if you'd like to use Chuffed or GeCode with option `-s <chuffed|gecode>`
 - Specify the range of instances you'd like to solve with option `-r <range>`, e.g. `-r 2-9`
 
-The solver will output all the run-results to `/cp_solutions`.
+The solver will output all the run-results to `/out`.
 
 # Propositional Satisfiability (SAT)
 
