@@ -49,7 +49,7 @@ The problem has been solved using three different approaches; [Constraint Progra
 Run the `minizinc_solver.py`-script from your terminal
 
 ```sh
-$ cd CP
+$ cd CP/src
 $ ./minizinc_solver.py
 ```
 
@@ -77,7 +77,7 @@ The solver will output all the run-results to `/out`.
 
 ## Usage
 
-All the code for running the SAT-solver is present in `sat_solver.ipynb`.
+All the code for running the SAT-solver is present in `src/sat_solver.ipynb`.
 
 - If you'd like to run the notebook in the Jupyter-environment:
   ```sh
@@ -85,7 +85,7 @@ All the code for running the SAT-solver is present in `sat_solver.ipynb`.
   $ jupyter notebook --ip 127.0.0.1
   ```
 
-# Linear Programming (LP)
+# Mixed-Integer Linear Programming (MIP)
 
 ## Getting Started
 
@@ -99,7 +99,7 @@ All the code for running the SAT-solver is present in `sat_solver.ipynb`.
 
 ## Usage
 
-All the code for running the MIP-solver is present in `lp_solver.ipynb`.
+All the code for running the MIP-solver is present in `src/mip_solver.ipynb`.
 
 - If you'd like to run the notebook in the Jupyter-environment:
   ```sh
