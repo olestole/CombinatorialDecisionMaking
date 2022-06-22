@@ -85,7 +85,7 @@ All the code for running the SAT-solver is present in `sat_solver.ipynb`.
   $ jupyter notebook --ip 127.0.0.1
   ```
 
-# Linear Programming (LP)
+# Mixed-Integer Linear Programming (MIP)
 
 ## Getting Started
 
@@ -99,7 +99,7 @@ All the code for running the SAT-solver is present in `sat_solver.ipynb`.
 
 ## Usage
 
-All the code for running the MIP-solver is present in `lp_solver.ipynb`.
+All the code for running the MIP-solver is present in `mip_solver.ipynb`.
 
 - If you'd like to run the notebook in the Jupyter-environment:
   ```sh
