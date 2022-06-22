@@ -49,7 +49,7 @@ The problem has been solved using three different approaches; [Constraint Progra
 Run the `minizinc_solver.py`-script from your terminal
 
 ```sh
-$ cd CP
+$ cd CP/src
 $ ./minizinc_solver.py
 ```
 
@@ -60,7 +60,7 @@ $ ./minizinc_solver.py
 - Specify if you'd like to use Chuffed or GeCode with option `-s <chuffed|gecode>`
 - Specify the range of instances you'd like to solve with option `-r <range>`, e.g. `-r 2-9`
 
-The solver will output all the run-results to `/cp_solutions`.
+The solver will output all the run-results to `/out`.
 
 # Propositional Satisfiability (SAT)
 
@@ -77,7 +77,7 @@ The solver will output all the run-results to `/cp_solutions`.
 
 ## Usage
 
-All the code for running the SAT-solver is present in `sat_solver.ipynb`.
+All the code for running the SAT-solver is present in `src/sat_solver.ipynb`.
 
 - If you'd like to run the notebook in the Jupyter-environment:
   ```sh
@@ -99,7 +99,7 @@ All the code for running the SAT-solver is present in `sat_solver.ipynb`.
 
 ## Usage
 
-All the code for running the MIP-solver is present in `mip_solver.ipynb`.
+All the code for running the MIP-solver is present in `src/mip_solver.ipynb`.
 
 - If you'd like to run the notebook in the Jupyter-environment:
   ```sh
